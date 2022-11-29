@@ -51,3 +51,15 @@ export async function getListItems() {
 
     return checkError(response);
 }
+
+export async function createListItem(item, quantity) {
+    const response = await client.from('shopping_list').insert([{ item, quantity }]); // because of RLS and our default values, we add user_id for free
+
+    return checkError(response);
+}
+
+export async function deleteAllListItems() {
+    const response = await client.from('shopping_list').delete().match({ user_id: getUser().id });
+
+    return checkError(response);
+}
