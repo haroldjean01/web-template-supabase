@@ -42,3 +42,12 @@ function checkError({ data, error }) {
 }
 
 /* Data functions */
+export async function getListItems() {
+    const response = await client
+        .from('shopping_list')
+        .select()
+        .match({ user_id: client.auth.user().id });
+    // this will only grab items that belong to this user thanks to RLS and user_id property
+
+    return checkError(response);
+}
