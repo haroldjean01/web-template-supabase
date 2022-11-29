@@ -1,26 +1,17 @@
-## The Golden Rule:
+Shopping Page
 
-🦸 🦸‍♂️ `Stop starting and start finishing.` 🏁
+[]Succesful authentication should redirect to the shopping page 1
+[]Unauthenticated users trying to visit shopping page should be redirected to login 1
+[]Users should see a list of their shopping list items 2
+[]Users should be able to add an item to their shopping list 2
+[]When a user clicks on an item, it should be updated to `bought=true` 2
+[]When an item is bought, it should display differently on the page 2
+[]Users should be able to delete all shopping list items 3
 
-If you work on more than one feature at a time, you are guaranteed to multiply your bugs and your anxiety.
-
-## Making a plan
-
-1. **Make a drawing of your app. Simple "wireframes"**
-1. **Once you have a drawing, name the HTML elements you'll need to realize your vision**
-1. **For each HTML element ask: Why do I need this?**
-1. **Once we know _why_ we need each element, think about how to implement the "Why" as a "How"**
-1. **Find all the 'events' (user clicks, form submit, on load etc) in your app. Ask one by one, "What happens when" for each of these events. Does any state change?**
-1. **Think about how to validate each of your features according to a Definition of Done**
-1. **Consider what features _depend_ on what other features. Use this dependency logic to figure out what order to complete tasks.**
-
-Additional considerations:
-
--   Ask: which of your HTML elements need to be hard coded, and which need to be dynamically generated?
--   Consider your data model.
-    -   What kinds of objects (i.e., Dogs, Friends, Todos, etc) will you need?
-    -   What are the key/value pairs?
-    -   What arrays might you need?
-    -   What needs to live in a persistence layer?
--   Is there some state we need to initialize?
--   Ask: should any of this work be abstracted into functions? (i.e., is the work complicated? can it be reused?)
+Functions
+[]ASYNC `createItem(item)` -- adds a new item 1
+[]ASYNC `deleteAllItems()` -- deletes all items 1
+[]ASYNC `fetchItems()` -- fetches all items 1
+[]ASYNC `buyItem(id)` -- udpates specific item to `bought=true` 1
+[]PURE `renderItem(item)` -- takes an item object and returns a DOM element 1
+[]IMPURE `displayListItems()` -- fetches the items from supabase, clears out the DOM, rerenders them 2
