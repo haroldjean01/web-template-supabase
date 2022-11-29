@@ -5,6 +5,16 @@ const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 /* Auth related functions */
 
+export async function checkAuth() {
+    const user = getUser();
+
+    if (!user) location.replace('../');
+}
+
+export async function redirectIfLoggedIn() {
+    if (getUser()) location.replace('./list');
+}
+
 export function getUser() {
     return client.auth.user();
 }
@@ -25,6 +35,10 @@ export async function signInUser(email, password) {
 
 export async function signOutUser() {
     return await client.auth.signOut();
+}
+
+function checkError({ data, error }) {
+    return error ? console.error(error) : data;
 }
 
 /* Data functions */

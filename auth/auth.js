@@ -4,6 +4,7 @@ import { getUser, signInUser, signUpUser } from '../fetch-utils.js';
 // If on this /auth page but we have a user, it means
 // user probably navigated here by the url.
 // Send them back to home page (they need to sign out first!)
+
 const user = getUser();
 if (user) location.replace('/');
 

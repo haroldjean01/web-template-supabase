@@ -36,13 +36,28 @@
             <img class="logo" src="/assets/aldi.jpeg" alt="logo" />
             <p class="title">Aldi's Online Shopping list</p>
             <nav>
-                <a href="/">Home</a>
+                <!-- <a href="/">Home</a> -->
                 <a id="sign-out-link" href="auth">Sign Out</a>
             </nav>
         </header>
-
-        <main>
-            <div id="shopping-list">Shopping List</div>
+        <main class="auth-main">
+            <section>
+                <form class="item-form">
+                    <label>
+                        Quantity:
+                        <input type="number" name="quantity" min="0" />
+                    </label>
+                    <label>
+                        Item:
+                        <input name="item" />
+                    </label>
+                    <button>Add item</button>
+                </form>
+                <ul class="list">
+                    <!-- list items go here -->
+                </ul>
+                <button class="delete">Delete list</button>
+            </section>
         </main>
     </body>
 </html>
