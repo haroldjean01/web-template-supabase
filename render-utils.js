@@ -6,13 +6,3 @@ export function renderListItem(item) {
 
     return listItemEl;
 }
-
-async function fetchAndDisplayList() {
-    listEl.textContent = '';
-    const list = await getListItems();
-    if (list) {
-        for (let item of list) {
-            const listItemEl = renderListItem(item);
-        }
-    }
-}
