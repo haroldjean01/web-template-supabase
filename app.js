@@ -15,12 +15,16 @@ import { renderListItem } from './render-utils.js';
 // const signUpPassword = document.getElementById('sign-up-password');
 
 const form = document.querySelector('.create-form');
-// const deleteButton = document.querySelector('#delete-button');
+const deleteButton = document.querySelector('#delete-button');
 const listEl = document.querySelector('.list');
 const error = document.querySelector('#error');
 /* State */
 
 /* Events */
+window.addEventListener('load', async () => {
+    await fetchAndDisplayList();
+});
+
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
