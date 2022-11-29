@@ -28,5 +28,31 @@ form.addEventListener('submit', async (e) => {
     const item = data.get('item');
     const rating = data.get('rating');
     form.reset();
+
+    const newItem = await createListItem(item, rating);
+    if (newItem) {
+        fetchAndDisplayList();
+    } else {
+        error.textContent = 'Something went wrong while adding your favorite';
+    }
 });
 /* Display Functions */
+async function fetchAndDisplayList() {
+    listEl.textContent = '';
+    // call our fetch to supabase
+    const list = await getListItems();
+    if (list) {
+        for (let item of list) {
+            const listItemEl = renderListItem(item);
+            listItemEl.addEventListener('click', async () => {
+                await editListItem(item);
+                await fetchAndDisplayList();
+            });
+            if (item.cross_out) {
+                listItemEl.classList.add('cross-out-true');
+            }
+
+            listEl.append(listItemEl);
+        }
+    }
+}
