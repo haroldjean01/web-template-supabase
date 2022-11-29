@@ -4,7 +4,6 @@ const SUPABASE_KEY =
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 /* Auth related functions */
-
 export async function checkAuth() {
     const user = getUser();
 
@@ -44,7 +43,7 @@ function checkError({ data, error }) {
 /* Data functions */
 export async function getListItems() {
     const response = await client
-        .from('shopping_list')
+        .from('shopping')
         .select()
         .match({ user_id: client.auth.user().id });
     // this will only grab items that belong to this user thanks to RLS and user_id property
@@ -53,13 +52,13 @@ export async function getListItems() {
 }
 
 export async function createListItem(item, quantity) {
-    const response = await client.from('shopping_list').insert([{ item, quantity }]); // because of RLS and our default values, we add user_id for free
+    const response = await client.from('shopping').insert([{ item, quantity }]); // because of RLS and our default values, we add user_id for free
 
     return checkError(response);
 }
 
 export async function deleteAllListItems() {
-    const response = await client.from('shopping_list').delete().match({ user_id: getUser().id });
+    const response = await client.from('shopping').delete().match({ user_id: getUser().id });
 
     return checkError(response);
 }
