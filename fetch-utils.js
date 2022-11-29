@@ -4,16 +4,6 @@ const SUPABASE_KEY =
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 /* Auth related functions */
-export async function checkAuth() {
-    const user = getUser();
-
-    if (!user) location.replace('../');
-}
-
-export async function redirectIfLoggedIn() {
-    if (getUser()) location.replace('./list');
-}
-
 export function getUser() {
     return client.auth.user();
 }
@@ -36,29 +26,49 @@ export async function signOutUser() {
     return await client.auth.signOut();
 }
 
-function checkError({ data, error }) {
-    return error ? console.error(error) : data;
+/* Data functions */
+export async function createListItem(item, rating) {
+    const response = await client.from('shopping').insert({ item, rating });
+
+    if (response.error) {
+        console.error(response.error.message);
+    } else {
+        return response.data;
+    }
 }
 
-/* Data functions */
 export async function getListItems() {
     const response = await client
         .from('shopping')
-        .select()
+        .select('*')
         .match({ user_id: client.auth.user().id });
-    // this will only grab items that belong to this user thanks to RLS and user_id property
-
-    return checkError(response);
+    console.log('response', response);
+    if (response.error) {
+        console.error(response.error.message);
+    } else {
+        return response.data;
+    }
 }
 
-export async function createListItem(item, quantity) {
-    const response = await client.from('shopping').insert([{ item, quantity }]); // because of RLS and our default values, we add user_id for free
+export async function editListItem(item) {
+    const response = await client
+        .from('shopping')
+        .update({ cross_out: !item.cross_out })
+        .match({ id: item.id });
 
-    return checkError(response);
+    if (response.error) {
+        console.error(response.error.message);
+    } else {
+        return response.data;
+    }
 }
 
-export async function deleteAllListItems() {
+export async function deleteList() {
     const response = await client.from('shopping').delete().match({ user_id: getUser().id });
 
-    return checkError(response);
+    if (response.error) {
+        console.error(response.error.message);
+    } else {
+        return response.data;
+    }
 }

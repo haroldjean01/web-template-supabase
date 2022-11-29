@@ -2,8 +2,8 @@
 // this will check if we have a user and set signout link if it exists
 import './auth/user.js';
 
-import { createListItem, deleteList, editListItem, getListItems } from './fetch-utils.js';
-// import { renderListItem } from './render-utils.js';
+import { createListItem, editListItem, getListItems } from './fetch-utils.js';
+import { renderListItem } from './render-utils.js';
 
 /* Get DOM Elements */
 // const signInForm = document.getElementById('sign-in');
@@ -15,7 +15,7 @@ import { createListItem, deleteList, editListItem, getListItems } from './fetch-
 // const signUpPassword = document.getElementById('sign-up-password');
 
 const form = document.querySelector('.create-form');
-const deleteButton = document.querySelector('#delete-button');
+// const deleteButton = document.querySelector('#delete-button');
 const listEl = document.querySelector('.list');
 const error = document.querySelector('#error');
 /* State */
@@ -26,10 +26,10 @@ form.addEventListener('submit', async (e) => {
 
     const data = new FormData(form);
     const item = data.get('item');
-    const rating = data.get('rating');
+    const quantity = data.get('quantity');
     form.reset();
 
-    const newItem = await createListItem(item, rating);
+    const newItem = await createListItem(item, quantity);
     if (newItem) {
         fetchAndDisplayList();
     } else {
