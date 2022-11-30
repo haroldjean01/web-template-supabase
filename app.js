@@ -14,7 +14,7 @@ import { renderListItem } from './render-utils.js';
 // const signUpEmail = document.getElementById('sign-up-form');
 // const signUpPassword = document.getElementById('sign-up-password');
 
-const form = document.querySelector('.create-form');
+const form = document.querySelector('.item-form');
 const deleteButton = document.querySelector('#delete-button');
 const listEl = document.querySelector('.list');
 const error = document.querySelector('#error');
@@ -30,10 +30,10 @@ form.addEventListener('submit', async (e) => {
 
     const data = new FormData(form);
     const item = data.get('item');
-    const quantity = data.get('quantity');
+    const rating = data.get('rating');
     form.reset();
 
-    const newItem = await createListItem(item, quantity);
+    const newItem = await createListItem(item, rating);
     if (newItem) {
         fetchAndDisplayList();
     } else {
