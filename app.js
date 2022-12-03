@@ -30,19 +30,20 @@ form.addEventListener('submit', async (e) => {
 
     const data = new FormData(form);
     const item = data.get('item');
-    const rating = data.get('rating');
+    const quantity = data.get('quantity');
     form.reset();
 
-    const newItem = await createListItem(item, rating);
-    if (newItem) {
-        fetchAndDisplayList();
-    } else {
-        error.textContent = 'Something went wrong while adding your favorite';
-    }
+    await createListItem(item, quantity);
+    // if (newItem) {
+    fetchAndDisplayList();
+    // } else {
+    //     error.textContent = 'Something went wrong while adding your favorite';
+    // }
 });
 
 deleteButton.addEventListener('click', async () => {
     await deleteList();
+    await fetchAndDisplayList();
 });
 /* Display Functions */
 async function fetchAndDisplayList() {
